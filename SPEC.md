@@ -27,13 +27,18 @@ The bot can answer the following questions when the user asked:
 (all are on a node.js server)
 
 ## Demo
-Q:	Show me the flight from Hong Kong to Tokyo on 1 April(Single trip).
-A:	KA396 Wed 29 Mar 2017 15:00 HKD8,300
-Q:	What is the temperature in Tokyo?
-A:	20 degree celcius
-Q:	How long is my flight?
-A:	4 hours 20 minutes
+* Q:	Show me the flight from Hong Kong to Tokyo on 1 April(Single trip).
+* A:	KA396 Wed 29 Mar 2017 15:00 HKD8,300
+* Q:	What is the temperature in Tokyo?
+* A:	20 degree celcius
+* Q:	How long is my flight?
+* A:	4 hours 20 minutes
 
 ## Deployment
 
 ## Authors
+* Jimmy Sinn - Telegram
+* Victor Wong - Telegram
+* Kelvin Chang - QA system(paralex)
+* Winson Leung - Research on API
+* Alison Wong - Presentation files
