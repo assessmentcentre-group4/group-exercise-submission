@@ -3,10 +3,22 @@ let config = require('./config.js');
 let Telegram = require('node-telegram-bot-api');
 let request = require('request');
 let fs = require('fs');
+let exec = require('child_process').exec;
+
+function handle_input(message) {
+  fs.writeFile('test.txt', message, e => {if (e) console.log(e)});
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      exec('cat test.txt', (err, stdout, stderr) => {
+        console.log(stdout);
+      })
+    }, 1000); 
+  })
+}
 
 function get_reply(chatid, message) {
-  fs.writeFile('test.txt', message, e => {if (e) console.log(e)});
-  return get_weather('Tokyo');
+  return handle_input(message).then(get_weather('Tokyo'));
 }
 
 function get_weather(location) {
@@ -66,6 +78,26 @@ function telegram_init() {
   // });
 
   console.log('Start listening ...');
+}
+
+let skyscanner = require('skyscannerjs');
+let test_skyscanner = () => {
+  const api = new skyscanner.API(config.skyscanner.apikey);
+  console.log(api);
+
+  api.flights.livePrices.session({
+    country: "UK",
+    currency: "GBP",
+    locale: "en-GB",
+    locationSchema: "Iata",
+    originplace: "EDI",
+    destinationplace: "LHR",
+    outbounddate: "2016-06-13",
+    adults: 1
+  }).then((response) => {
+      // URL to poll the session.
+      const location = response.headers.location;
+  }).catch(console.error);
 }
 
 telegram_init();
