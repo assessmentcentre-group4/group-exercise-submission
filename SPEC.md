@@ -39,6 +39,6 @@ The bot can answer the following questions when the user asked:
 ## Authors
 * Jimmy Sinn - Telegram
 * Victor Wong - Telegram
-* Kelvin Chang - QA system(paralex)
+* Kelvin Chang - QA system(paralex) http://knowitall.cs.washington.edu/paralex/
 * Winson Leung - Research on API
 * Alison Wong - Presentation files
