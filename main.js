@@ -5,6 +5,8 @@ let request = require('request');
 let fs = require('fs');
 let exec = require('child_process').exec;
 
+let progress_count = {};
+
 function handle_input(message) {
   fs.writeFile('test.txt', message, e => {if (e) console.log(e)});
 
@@ -12,13 +14,21 @@ function handle_input(message) {
     setTimeout(() => {
       exec('cat test.txt', (err, stdout, stderr) => {
         console.log(stdout);
+        resolve(stdout);
       })
-    }, 1000); 
+    }, 1000);
   })
 }
 
 function get_reply(chatid, message) {
-  return handle_input(message).then(get_weather('Tokyo'));
+  progress_count[chatid]++;
+  switch (progress_count[chatid]) {
+    case 1: return Promise.resolve('Hello =D');
+    case 2: return Promise.resolve('KA396 Wed 29 Mar 2017 15:00 HKT HKD8,300');
+    case 3: return get_weather('Tokyo');
+    case 4: return Promise.resolve('4 hours and 20 minutes');
+    default: return Promise.resolve('Sorry, I don\'t understand T_T');
+  }
 }
 
 function get_weather(location) {
@@ -56,11 +66,17 @@ function telegram_init() {
     // })
   });
 
+  telegramBot.onText(/\/hi/, msg => {
+    // console.log('re')
+    progress_count[msg.from.id] = 0;
+  })
+
   telegramBot.onText(/\/myid(.*)/, function(msg) {
     telegramBot.sendMessage(msg.from.id, 'Your chat id is: ' + msg.from.id);
   });
 
   telegramBot.onText(/.*/, function(msg) {
+    // console.log('recv')
     get_reply(msg.from.id, msg.text)
       .then(message => telegramBot.sendMessage(msg.from.id, message))
   });
