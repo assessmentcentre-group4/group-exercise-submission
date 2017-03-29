@@ -1,0 +1,16 @@
+{
+  "name": "cx-assessment-center",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "gulp-eslint": "^3.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "node-telegram-bot-api": "^0.27.0",
+    "skyscannerjs": "^0.2.2"
+  }
+}
